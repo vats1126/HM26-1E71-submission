@@ -6,23 +6,16 @@
 > Using AI never costs you points. Not being able to explain code you submitted does.
 > Reviewers check this file against your commit history and the AI segment of your video.
 
-<!--
-This file covers two different things. Keep them separate:
-  Section 1: AI tools YOU used while building (ChatGPT, Copilot, Cursor, Claude, v0, ...)
-  Section 3: AI models your PRODUCT uses at runtime (vision model, LLM classifier, ...)
-If you used no AI at all, say so explicitly in the Summary and delete the rest.
--->
-
 ---
 
 ## Summary
 
 | Question | Answer |
 |---|---|
-| Did we use AI tools during development? | `<Yes / No>` |
-| Does our product use AI/ML at runtime? | `<Yes / No>` |
-| Roughly how much of the code was AI-assisted? | `<e.g. ~40% of frontend, ~15% of backend, 0% of routing logic>` |
-| Can every team member explain the AI-assisted code? | `<Yes>` |
+| Did we use AI tools during development? | Yes |
+| Does our product use AI/ML at runtime? | No |
+| Roughly how much of the code was AI-assisted? | Mostly AI-assisted throughout development; exact percentages were not formally tracked. |
+| Can every team member explain the AI-assisted code? | Yes |
 
 ---
 
@@ -30,56 +23,63 @@ If you used no AI at all, say so explicitly in the Summary and delete the rest.
 
 | Tool | Model / plan | Used by | What we used it for |
 |---|---|---|---|
-| `<ChatGPT>` | `<GPT-x, free>` | `<@handle>` | `<Debugging CORS errors, regex for phone validation>` |
-| `<GitHub Copilot>` | `<...>` | `<@handle, @handle>` | `<Autocomplete in React components>` |
-| `<Cursor / Claude / v0 / ...>` | `<...>` | `<...>` | `<...>` |
+| ChatGPT | Not tracked | Vivek Urs G A | Architecture discussion, debugging, planning, code guidance |
+| Google Antigravity | Not tracked | Vivek Urs G A | Full-stack implementation, debugging, testing |
+| Hermes | Not tracked | Vivek Urs G A | Coding / agent-assisted workflows |
+| Claude Code | Not tracked | Vivek Urs G A | Coding, review, debugging |
+| Codex / Codex CLI | Not tracked | Vivek Urs G A | Coding, review |
+
+Other team members' individual AI tool usage was not tracked or confirmed.
 
 ## 2. Where AI Helped in the Codebase
 
-| Area / file | Level of AI help | What a human did |
-|---|---|---|
-| `src/<frontend/components/>` | `<High: scaffolded by v0>` | `<Rewrote state handling, added offline queue>` |
-| `src/<api/routes.py>` | `<Medium: Copilot suggestions>` | `<Designed endpoints, wrote validation>` |
-| `src/<routing/engine.py>` | `<None>` | `<Written by hand, core logic>` |
-| `<README / docs>` | `<...>` | `<...>` |
+AI assistance was used broadly across product architecture, frontend, backend integration, and debugging/testing, in line with the "AI Tools Used" table above. Specific areas AI materially contributed to:
 
-**Commit convention (optional, recommended):** commits containing substantial AI-generated code are tagged `[ai]` in the message, e.g. `feat: ward status page [ai]`.
+| Area | Level of AI help | What a human did |
+|---|---|---|
+| Architecture & data model (report lifecycle, role model, Supabase/PostGIS design) | High — design discussion and scaffolding | Team reviewed and finalized the architecture; runtime AI was deliberately kept optional/non-existent in the MVP |
+| Frontend (Next.js pages, components, `/report` flow, map UI) | Medium–High | Team fixed layout/mobile bugs, tuned UX, verified against real devices |
+| Backend (Supabase integration, RLS, lifecycle API routes) | Medium | Team designed the schema/permission model and validated RLS behavior |
+| Debugging / testing | High — used to isolate root causes | Team verified and applied the actual fixes (see Section 5) |
+
+**Commit convention:** commits containing substantial AI-generated code are tagged `[ai]` in the message, e.g. `feat: ward status page [ai]`.
 
 ## 3. AI Inside the Product (runtime)
 
-<!-- Delete this section if your product uses no AI/ML at runtime. -->
+**Runtime AI: None.** The submitted MVP does not invoke an AI model as part of its production user workflow. Cleanup verification runs through human review only. The architecture keeps a `verifyCleanup(before, after)` interface for a future, provider-agnostic AI layer, but no model is called at runtime in this submission. AI was used as a development tool, not as a required runtime component.
 
-| Model / API | What it does in our product | Hosted where | Trained / fine-tuned by us? |
+## 4. Key Prompts
+
+The following are representative prompts that shaped real design and implementation decisions — described as representative summaries of our prompting, not exact historical quotations.
+
+| # | Prompt (representative) | What we kept | What we changed or rejected |
 |---|---|---|---|
-| `<YOLOv8n>` | `<Detects overflowing bins in photos>` | `<On server / on device>` | `<Fine-tuned on 300 labelled images>` |
-| `<LLM API>` | `<Classifies complaint text into issue types>` | `<Provider API>` | `<No, prompt only>` |
-
-- **Accuracy we measured:** `<e.g. 82% precision on 50 held-out images>` (or "not measured yet")
-- **What happens when the model is wrong:** `<fallback, human review, confidence threshold>`
-- **Does it work offline?** `<...>`
-- **Citizen data sent to third parties:** `<none / what, and why>`
-- **Cost at city scale:** `<rough estimate, or "unknown">`
-
-## 4. Key Prompts (optional, max 5)
-
-<!-- Only prompts that shaped a real design or code decision. Not a full chat log. -->
-
-| # | Prompt (short) | What we kept | What we changed or rejected |
-|---|---|---|---|
-| 1 | `<"Suggest a schema for complaints with geo-dedup">` | `<Table layout>` | `<Replaced lat/lng floats with PostGIS geography>` |
+| 1 | "Design the end-to-end architecture for a real-time civic accountability platform where citizens report issues with geographic evidence, reports are routed, government/NGOs can act, and citizens can verify or reopen them." | Overall lifecycle and Supabase/PostGIS-based architecture | Kept AI verification optional rather than a hard dependency |
+| 2 | "Design the role and permission model separating citizen/public access from municipal officer and NGO operational actions while keeping public information visible." | Citizen / Officer / NGO / Verifier role separation | Enforced permissions at the API level, not just the UI |
+| 3 | "Implement the complete civic report lifecycle from submission through claim, cleanup, verification, reopening, follow-up, and bounty handling, with timeline and notification updates." | Full lifecycle state machine and timeline model | — |
+| 4 | "Connect the existing CleanCity frontend to Supabase with PostgreSQL/PostGIS, API routes, report persistence, lifecycle actions, and RLS while preserving the existing demo fallback." | Supabase/PostGIS integration, RLS approach | Preserved a working demo fallback path |
+| 5 | "Investigate and fix the /report page layout issue involving sticky headers, overflow, scrolling, stacking, and mobile responsiveness." | Root-cause fix for the stacking/overflow bug | — |
 
 ## 5. How We Verified AI Output
 
-- `<e.g. Every AI-generated function was run against our seed data before merging>`
-- `<e.g. Rejected suggestions that stored photos in the database as base64>`
-- `<Example of a bug an AI tool introduced and how we caught it>`
+AI-assisted debugging helped identify and resolve the following issues, which the team then verified and fixed:
+
+- GPS requests that could hang or timeout.
+- Incorrect `/report` sticky-header and overflow stacking behavior.
+- Mobile bottom-sheet and navigation layering issues.
+- Incorrect visibility of operational controls for Citizen/Public roles.
+- Incorrect actor assignment in NGO bounty flows.
+- Persistent role storage preventing the intended fresh-session role selector.
+- Hydration / non-deterministic rendering issues.
+
+Architecture decisions produced with AI assistance were reviewed rather than accepted as-is — in particular, the team deliberately kept runtime AI optional/non-existent in the submitted MVP rather than following a suggestion to integrate a provider directly.
 
 ## 6. What We Deliberately Did *Not* Use AI For
 
-- `<e.g. The Decision Log — written by the team in our own words>`
-- `<e.g. The jurisdiction routing rules>`
+- The Decision Log — written by the team in our own words.
+- The final call on runtime architecture (keeping AI out of the production workflow) — made and owned by the team, not delegated to a tool's suggestion.
 
 ---
 
 **Declaration:** We confirm this disclosure is complete, and every team member can explain the code listed above.
-**Signed:** `<Team Leader name>` on behalf of `<Team Name>` · `<date>`
+**Signed:** Varun P on behalf of Mysuru Janseva · 20 September 2026
