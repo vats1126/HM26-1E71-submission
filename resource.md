@@ -96,7 +96,7 @@ Only the **first 16 characters** of the SHA-256 hash are included in the table a
 
 | Field                    | Value                                                                                                                                 |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Live URL                 | `https://hm-26-1-e71-submission-a5pf8y0l0-vats-projects-5dc884a9.vercel.app/`                                                         |
+| Live URL                 | `https://hm-26-1-e71-submission-1cn3.vercel.app/welcome`                                                         |
 | Platform                 | `Web Application / PWA`                                                                                                               |
 | Hosting                  | `Vercel`                                                                                                                              |
 | Backend / Database       | `Supabase`                                                                                                                            |
