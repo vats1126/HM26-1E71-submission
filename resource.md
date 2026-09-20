@@ -59,7 +59,7 @@ The platform is designed to address the gap between reporting a civic issue and 
 
 |  # | Artifact                                                                              | Google Drive Link                                                                    | File Name                    | SHA-256 — First 16 Characters |
 | -: | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------- | ----------------------------- |
-|  1 | [Pitch + Code Walkthrough Video](./resource-templates/video-guide.md) — ≤ 10 min, MP4 | `https://drive.google.com/file/d/1HumxC8fk8K-4Qp_N2Bmoku-8l4hBD0NA/view?usp=sharing`                                                          | `HM26-1E71_video.mp4`          | `6e9f2d3caa7e582660c8c1701efeb63538fb0ce94be874c77288d2309d90edd4`                   |
+|  1 | [Pitch + Code Walkthrough Video](./resource-templates/video-guide.md) — ≤ 10 min, MP4 | `https://drive.google.com/file/d/1HumxC8fk8K-4Qp_N2Bmoku-8l4hBD0NA/view?usp=sharing`                                                          | `HM26-1E71_video.mp4`          | `6e9f2d3caa7e5826`                   |
 |  2 | [Decision Log](./resource-templates/decision-log-template.md) — 1 page, PDF           | `https://drive.google.com/file/d/1cUwGwFHDXj768JwydzTUckeXcGAiZAg6/view?usp=sharing` | `HM26-1E71_decision-log.pdf` | `0d66b58f6b79075e`            |
 |  3 | [Presentation](./resource-templates/presentation-template.md) — ≤ 10 slides, PDF      | `https://drive.google.com/file/d/1npdG3AsbNua5uuvlIVwcbefRcp-luevk/view?usp=sharing` | `HM26-1E71_presentation.pdf` | `dc9e4072f3ca79ab`            |
 
