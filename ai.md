@@ -23,13 +23,11 @@
 
 | Tool | Model / plan | Used by | What we used it for |
 |---|---|---|---|
-| ChatGPT | Not tracked | Vivek Urs G A | Architecture discussion, debugging, planning, code guidance |
-| Google Antigravity | Not tracked | Vivek Urs G A | Full-stack implementation, debugging, testing |
-| Hermes | Not tracked | Vivek Urs G A | Coding / agent-assisted workflows |
-| Claude Code | Not tracked | Vivek Urs G A | Coding, review, debugging |
-| Codex / Codex CLI | Not tracked | Vivek Urs G A | Coding, review |
-
-Other team members' individual AI tool usage was not tracked or confirmed.
+| ChatGPT | Not tracked | Syed Naheed Ahmed, Varun P, Vignesh Kumar M, Vivek Urs G A | Architecture discussion, debugging, planning, code guidance |
+| Google Antigravity | Not tracked | Syed Naheed Ahmed, Varun P, Vignesh Kumar M, Vivek Urs G A | Full-stack implementation, debugging, testing |
+| Hermes | Not tracked | Syed Naheed Ahmed, Varun P, Vignesh Kumar M, Vivek Urs G A | Coding / agent-assisted workflows |
+| Claude Code | Not tracked | Syed Naheed Ahmed, Varun P, Vignesh Kumar M, Vivek Urs G A | Coding, review, debugging |
+| Codex / Codex CLI | Not tracked | Syed Naheed Ahmed, Varun P, Vignesh Kumar M, Vivek Urs G A | Coding, review |
 
 ## 2. Where AI Helped in the Codebase
 
