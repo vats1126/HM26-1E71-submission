@@ -63,7 +63,7 @@ flowchart TD
     G --> K["REOPENED - a follow-up shows the issue is back"]
 ```
 
-**Screenshots:** `<2–4 images under docs/images/, each < 1 MB>`
+
 
 ## 4. Architecture
 
