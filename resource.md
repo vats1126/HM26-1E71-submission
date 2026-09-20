@@ -20,18 +20,18 @@ HOW TO FILL THIS FILE
 
 | Field | Value |
 |---|---|
-| Team ID (from dashboard) | `<HM1-XXXX>` |
-| Team Name | `<team name>` |
-| College(s) | `<college name(s)>` |
-| Team Leader | `<name>` · `<email>` · `<phone>` |
-| Repository | `<https://github.com/org-or-user/repo>` |
+| Team ID (from dashboard) | `<HM26-1E71>` |
+| Team Name | `<Bug Busters>` |
+| College(s) | `<Maharaja Institute of Technology Mysore>` |
+| Team Leader | `<Varun P>` · `<varunrao246@gmail.com>` · `<9108365820>` |
+| Repository | `<https://github.com/vats1126/HM26-1E71-submission.git>` |
 
-| # | Member | Program & Year | GitHub Handle | Primary Role |
+| # | Member | Program & Year | GitHub Handle |
 |---|---|---|---|---|
-| 1 | `<name>` (Lead) | `<B.E. CSE, 3rd yr>` | `@<handle>` | `<backend / ML / frontend / ...>` |
-| 2 | `<name>` | `<...>` | `@<handle>` | `<...>` |
-| 3 | `<name>` | `<...>` | `@<handle>` | `<...>` |
-| 4 | `<name>` | `<...>` | `@<handle>` | `<...>` |
+| 1 | `<Varun P>` (Lead) | `<B.E. CSE, 3rd yr>` | `@varunrao246` |
+| 2 | `Vivek Urs G A` | `B.E. CSE, 3rd yr` | `@vats1126>` | 
+| 3 | `Syed Naheed Ahmed` | `B.E. CSE, 3rd yr` | `@n4heed` | 
+| 4 | `Vignesh Kumar M` | `B.E. CSE, 3rd yr` | `@VigneshKumar2709` | 
 
 ---
 
