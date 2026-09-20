@@ -16,12 +16,12 @@
 | Team Leader | `Varun P` · `varunrao246@gmail.com` · `9108365820`     |
 | Repository  | `https://github.com/vats1126/HM26-1E71-submission.git` |
 
-| # | Member              | Program & Year       | GitHub Handle       |
-| - | ------------------- | -------------------- | ------------------- |
-| 1 | `Varun P` — Lead    | `B.E. CSE, 3rd Year` | `@varunrao246`      |
-| 2 | `Vivek Urs G A`     | `B.E. CSE, 3rd Year` | `@vats1126`         |
-| 3 | `Syed Naheed Ahmed` | `B.E. CSE, 3rd Year` | `@n4heed`           |
-| 4 | `Vignesh Kumar M`   | `B.E. CSE, 3rd Year` | `@VigneshKumar2709` |
+|  # | Member              | Program & Year       | GitHub Handle       |
+| -: | ------------------- | -------------------- | ------------------- |
+|  1 | `Varun P` — Lead    | `B.E. CSE, 3rd Year` | `@varunrao246`      |
+|  2 | `Vivek Urs G A`     | `B.E. CSE, 3rd Year` | `@vats1126`         |
+|  3 | `Syed Naheed Ahmed` | `B.E. CSE, 3rd Year` | `@n4heed`           |
+|  4 | `Vignesh Kumar M`   | `B.E. CSE, 3rd Year` | `@VigneshKumar2709` |
 
 ---
 
@@ -57,11 +57,11 @@ The platform is designed to address the gap between reporting a civic issue and 
 
 ## 4. Submission Artifacts — Google Drive
 
-| # | Artifact                                                                              | Google Drive Link                  | File Name                  | SHA-256 — First 16 Characters |
-| - | ------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- | ----------------------------- |
-| 1 | [Pitch + Code Walkthrough Video](./resource-templates/video-guide.md) — ≤ 10 min, MP4 | `<GOOGLE DRIVE VIDEO LINK>`        | `<VIDEO FILE NAME>`        | `<SHA-256>`                   |
-| 2 | [Decision Log](./resource-templates/decision-log-template.md) — 1 page, PDF           | `https://drive.google.com/file/d/1cUwGwFHDXj768JwydzTUckeXcGAiZAg6/view?usp=sharing` | `HM26-1E71_decision-log.pdf` | `0d66b58f6b79075e95401c31501c104975db1cbfaf78fcd97153ad53928758a9 `                   |
-| 3 | [Presentation](./resource-templates/presentation-template.md) — ≤ 10 slides, PDF      | `https://drive.google.com/file/d/1npdG3AsbNua5uuvlIVwcbefRcp-luevk/view?usp=sharing` | `HM26-1E71_presentation.pdf` | `dc9e4072f3ca79ab8765e38c28ff15af4c702385bf531bea16d17c2b07624950`                   |
+|  # | Artifact                                                                              | Google Drive Link                                                                    | File Name                    | SHA-256 — First 16 Characters |
+| -: | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------- | ----------------------------- |
+|  1 | [Pitch + Code Walkthrough Video](./resource-templates/video-guide.md) — ≤ 10 min, MP4 | `<GOOGLE DRIVE VIDEO LINK>`                                                          | `<VIDEO FILE NAME>`          | `<SHA-256>`                   |
+|  2 | [Decision Log](./resource-templates/decision-log-template.md) — 1 page, PDF           | `https://drive.google.com/file/d/1cUwGwFHDXj768JwydzTUckeXcGAiZAg6/view?usp=sharing` | `HM26-1E71_decision-log.pdf` | `0d66b58f6b79075e`            |
+|  3 | [Presentation](./resource-templates/presentation-template.md) — ≤ 10 slides, PDF      | `https://drive.google.com/file/d/1npdG3AsbNua5uuvlIVwcbefRcp-luevk/view?usp=sharing` | `HM26-1E71_presentation.pdf` | `dc9e4072f3ca79ab`            |
 
 ### SHA-256
 
@@ -71,7 +71,7 @@ Calculate the hash on macOS/Linux using:
 shasum -a 256 <file>
 ```
 
-Use only the **first 16 characters** in the table above.
+Only the **first 16 characters** of the SHA-256 hash are included in the table above.
 
 ---
 
@@ -94,15 +94,17 @@ Use only the **first 16 characters** in the table above.
 
 ## 5. Live MVP
 
-| Field                    | Value                                                                                                                                              |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Live URL                 | `<LIVE MVP URL — TO BE ADDED>`                                                                                                                     |
-| Platform                 | `Web Application / PWA`                                                                                                                            |
-| Test Login               | `To be provided if authentication is enabled`                                                                                                      |
-| Sample Data              | `Synthetic/demo data for demonstrating the civic complaint workflow`                                                                               |
-| Offline Mode             | `Open the application, disconnect the network or enable airplane mode, create a complaint and verify that the offline workflow remains available.` |
-| Detailed Offline Testing | See [docs/setup.md](./docs/setup.md#testing-offline-mode)                                                                                          |
-| If Live Link Is Down     | Follow [docs/setup.md](./docs/setup.md) to run the application locally                                                                             |
+| Field                    | Value                                                                                                                                 |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Live URL                 | `https://hm-26-1-e71-submission-a5pf8y0l0-vats-projects-5dc884a9.vercel.app/`                                                         |
+| Platform                 | `Web Application / PWA`                                                                                                               |
+| Hosting                  | `Vercel`                                                                                                                              |
+| Backend / Database       | `Supabase`                                                                                                                            |
+| Test Login               | `Use the application's available demo/test authentication flow`                                                                       |
+| Sample Data              | `Synthetic/demo data for demonstrating the civic complaint workflow`                                                                  |
+| Offline Mode             | `Open the application, disconnect the network or enable airplane mode, create a complaint and verify the supported offline workflow.` |
+| Detailed Offline Testing | See [docs/setup.md](./docs/setup.md#testing-offline-mode)                                                                             |
+| If Live Link Is Down     | Follow [docs/setup.md](./docs/setup.md) to run the application locally                                                                |
 
 ---
 
@@ -110,7 +112,7 @@ Use only the **first 16 characters** in the table above.
 
 The following path demonstrates the core end-to-end workflow:
 
-1. **Open the live MVP and enter the citizen-facing application.**
+1. **Open the live MVP** and enter the citizen-facing application.
 2. **Create a civic complaint** by selecting an issue category and providing the required details and location.
 3. **Observe the complaint workflow**, including validation and routing.
 4. **Open the staff/admin interface** and verify that the complaint appears in the appropriate workflow or queue.
