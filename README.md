@@ -91,7 +91,7 @@ flowchart TD
 
 **AI tools used in development:** `<e.g. Codex, Hermes, Google Antigravity — confirm the final list>`
 
-**AI inside the product:** Optional cleanup verification behind a replaceable `verifyCleanup(before, after)` interface that returns `verified | rejected | uncertain` with a confidence and reason. AI is a helper, never the sole authority — uncertain results go to manual review, and the app works fully if the AI provider is unavailable. Provider/model: `<fill in once selected>`
+**AI inside the product:** Optional cleanup verification behind a replaceable `verifyCleanup(before, after)` interface that returns `verified | rejected | uncertain` with a confidence and reason. AI is a helper, never the sole authority — uncertain results go to manual review, and the app works fully if the AI provider is unavailable. 
 
 ➡️ Full disclosure: **[ai.md](./ai.md)**
 
