@@ -65,20 +65,7 @@ The platform is designed to address the gap between reporting a civic issue and 
 
 
 
-### Video Chapters
 
-| Timestamp | Section                                       |
-| --------- | --------------------------------------------- |
-| `00:00`   | Part 1: Problem & target users                |
-| `00:40`   | Part 1: Live demo — core complaint flow       |
-| `01:50`   | Part 1: Input validation & bad-input handling |
-| `02:30`   | Part 1: Offline / airplane mode               |
-| `03:00`   | Part 2: Architecture overview                 |
-| `04:30`   | Part 2: Data model & APIs                     |
-| `05:30`   | Part 2: Key code walkthrough                  |
-| `07:30`   | Part 2: Decisions & trade-offs                |
-| `08:30`   | Part 2: Scaling & limitations                 |
-| `09:15`   | Part 2: AI usage — see [ai.md](./ai.md)       |
 
 ---
 
