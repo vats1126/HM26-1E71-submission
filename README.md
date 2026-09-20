@@ -1,7 +1,7 @@
 # Mysuru Janseva — Report it. Track it. Act on it. Verify it.
 
 > HackMysuru 1.0 · Phase 1 · Civic Governance & Clean Mysuru
-> Team `<Team Name>` (`<Team ID>`)
+> Team `Bug Busters` (`HM26-1E71`)
 
 | 📎 Submission links | 📋 Templates | 🏗️ Architecture | 🛡️ Hard constraints | ⚙️ Setup | 🤖 AI usage | ⚠️ Limitations |
 |---|---|---|---|---|---|---|
