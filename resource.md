@@ -61,7 +61,7 @@ The platform is designed to address the gap between reporting a civic issue and 
 | - | ------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- | ----------------------------- |
 | 1 | [Pitch + Code Walkthrough Video](./resource-templates/video-guide.md) — ≤ 10 min, MP4 | `<GOOGLE DRIVE VIDEO LINK>`        | `<VIDEO FILE NAME>`        | `<SHA-256>`                   |
 | 2 | [Decision Log](./resource-templates/decision-log-template.md) — 1 page, PDF           | `https://drive.google.com/file/d/1cUwGwFHDXj768JwydzTUckeXcGAiZAg6/view?usp=sharing` | `HM26-1E71_decision-log.pdf` | `0d66b58f6b79075e95401c31501c104975db1cbfaf78fcd97153ad53928758a9 `                   |
-| 3 | [Presentation](./resource-templates/presentation-template.md) — ≤ 10 slides, PDF      | `<GOOGLE DRIVE PRESENTATION LINK>` | `<PRESENTATION FILE NAME>` | `<SHA-256>`                   |
+| 3 | [Presentation](./resource-templates/presentation-template.md) — ≤ 10 slides, PDF      | `https://drive.google.com/file/d/1npdG3AsbNua5uuvlIVwcbefRcp-luevk/view?usp=sharing` | `HM26-1E71_presentation.pdf` | `dc9e4072f3ca79ab8765e38c28ff15af4c702385bf531bea16d17c2b07624950`                   |
 
 ### SHA-256
 
