@@ -678,7 +678,7 @@ export default function CitizenReportPage() {
   const currentStepNumber = STEPS.find((s) => s.key === currentStep)?.number ?? 5
 
   return (
-    <div className="min-h-screen bg-gray-50/60 pb-16">
+    <div className="min-h-screen bg-gray-50 pb-16">
       {/* Top Header / Civic Context */}
       <div className="sticky top-16 z-30 border-b border-gray-200 bg-white/95 backdrop-blur-md">
         <div className="max-w-2xl mx-auto px-4 py-3">
@@ -741,7 +741,7 @@ export default function CitizenReportPage() {
       </div>
 
       {/* Main Container */}
-      <main className="max-w-2xl mx-auto px-4 pt-4 sm:pt-6">
+      <div className="max-w-2xl mx-auto px-4 pt-4 sm:pt-6">
         {/* ========================================================= */}
         {/* STEP 1: LOCATION                                          */}
         {/* ========================================================= */}
@@ -2237,7 +2237,7 @@ export default function CitizenReportPage() {
             </div>
           </div>
         )}
-      </main>
+      </div>
     </div>
   )
 }
