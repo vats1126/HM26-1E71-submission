@@ -100,9 +100,27 @@ export default function DashboardPage() {
   const [verifyNotes, setVerifyNotes] = useState("")
   const [isSubmittingVerify, setIsSubmittingVerify] = useState(false)
 
-  // Refresh reports from service
-  const refreshData = useCallback(() => {
-    const updated = mockReportsService.getReports()
+  // Refresh reports from live Supabase API with fallback
+  const refreshData = useCallback(async () => {
+    let updated = mockReportsService.getReports()
+    try {
+      const res = await fetch("/api/reports")
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && Array.isArray(json.reports) && json.reports.length > 0) {
+          const liveMap = new Map<string, Report>()
+          json.reports.forEach((r: Report) => {
+            liveMap.set(r.id, r)
+            if (r.publicId) liveMap.set(r.publicId, r)
+          })
+          const nonDuplicateMock = updated.filter((r) => !liveMap.has(r.id) && !liveMap.has(r.publicId))
+          updated = [...json.reports, ...nonDuplicateMock]
+        }
+      }
+    } catch {
+      // Fallback to local storage / mock reports
+    }
+
     setReports([...updated])
     if (activeDetailReportId) {
       const refreshedDetail = updated.find((r) => r.id === activeDetailReportId || r.publicId === activeDetailReportId)
@@ -220,7 +238,25 @@ export default function DashboardPage() {
   // --------------------------------------------------------------------------
 
   // B4: CLAIM REPORT
-  const handleClaim = (report: Report) => {
+  const handleClaim = async (report: Report) => {
+    try {
+      const res = await fetch(`/api/reports/${report.id}/claim`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: "official" }),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          showToast(`Report ${report.publicId} claimed and assigned to Mohan Raj.`, "success")
+          refreshData()
+          return
+        }
+      }
+    } catch {
+      // Fallback to mock
+    }
+
     const updated = mockReportsService.claimReport(report.id)
     if (updated) {
       showToast(`Report ${report.publicId} claimed and assigned to Mohan Raj.`, "success")
@@ -229,7 +265,25 @@ export default function DashboardPage() {
   }
 
   // B5: START CLEANUP
-  const handleStartCleanup = (report: Report) => {
+  const handleStartCleanup = async (report: Report) => {
+    try {
+      const res = await fetch(`/api/reports/${report.id}/cleanup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "start" }),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          showToast(`Field team marked ${report.publicId} as Cleanup In Progress.`, "success")
+          refreshData()
+          return
+        }
+      }
+    } catch {
+      // Fallback to mock
+    }
+
     const updated = mockReportsService.startCleanup(report.id)
     if (updated) {
       showToast(`Field team marked ${report.publicId} as Cleanup In Progress.`, "success")
@@ -245,7 +299,7 @@ export default function DashboardPage() {
   }
 
   // B6: COMPLETE CLEANUP WITH AFTER EVIDENCE
-  const handleCompleteCleanupSubmit = (e: React.FormEvent) => {
+  const handleCompleteCleanupSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!cleanupModalReport) return
     setIsSubmittingCleanup(true)
@@ -258,6 +312,30 @@ export default function DashboardPage() {
       capturedAt: new Date().toISOString(),
       caption: p.caption || "Completed cleanup proof",
     }))
+
+    try {
+      const res = await fetch(`/api/reports/${cleanupModalReport.id}/cleanup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "complete",
+          afterMedia: mediaItems.map((m) => ({ url: m.url, caption: m.caption })),
+          notes: workerNotes,
+        }),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          setIsSubmittingCleanup(false)
+          setCleanupModalReport(null)
+          showToast(`${cleanupModalReport.publicId} submitted with evidence. Status: Pending Verification.`, "success")
+          refreshData()
+          return
+        }
+      }
+    } catch {
+      // Fallback to mock
+    }
 
     const updated = mockReportsService.completeCleanup(cleanupModalReport.id, mediaItems, workerNotes)
     setIsSubmittingCleanup(false)
@@ -277,10 +355,40 @@ export default function DashboardPage() {
   }
 
   // B7: VERIFICATION
-  const handleVerifySubmit = (e: React.FormEvent) => {
+  const handleVerifySubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!verifyModalReport) return
     setIsSubmittingVerify(true)
+
+    const outcome = verifyOutcome === "REJECTED" ? "REJECTED" : "VERIFIED"
+
+    try {
+      const res = await fetch(`/api/reports/${verifyModalReport.id}/verify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          outcome,
+          notes: verifyNotes,
+        }),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          setIsSubmittingVerify(false)
+          setVerifyModalReport(null)
+          const outcomeText =
+            outcome === "VERIFIED"
+              ? "Resolution Verified! 150 points credited."
+              : "Resolution Rejected. Report reopened for rework."
+
+          showToast(`${verifyModalReport.publicId}: ${outcomeText}`, outcome === "VERIFIED" ? "success" : "warning")
+          refreshData()
+          return
+        }
+      }
+    } catch {
+      // Fallback to mock
+    }
 
     const updated = mockReportsService.verifyCleanup(verifyModalReport.id, verifyOutcome, verifyNotes)
     setIsSubmittingVerify(false)
@@ -300,7 +408,25 @@ export default function DashboardPage() {
   }
 
   // B8: CLAIM BOUNTY
-  const handleClaimBounty = (report: Report) => {
+  const handleClaimBounty = async (report: Report) => {
+    try {
+      const res = await fetch(`/api/reports/${report.id}/claim`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: "ngo" }),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          showToast(`Bounty for ${report.publicId} claimed (+150 pts target). Proceed with cleanup.`, "success")
+          refreshData()
+          return
+        }
+      }
+    } catch {
+      // Fallback to mock
+    }
+
     const updated = mockReportsService.claimBounty(report.id)
     if (updated) {
       showToast(`Bounty for ${report.publicId} claimed (+150 pts target). Proceed with cleanup.`, "success")

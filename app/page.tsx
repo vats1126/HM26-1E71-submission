@@ -39,12 +39,29 @@ export default function HomePage() {
   const [activityEvents, setActivityEvents] = useState(() => mockActivityService.getLiveActivity())
   const [mapReady, setMapReady] = useState(false)
 
-  // Sync reports with local storage / service on mount and when window regains focus
+  // Sync reports with Supabase backend and local storage on mount and when window regains focus
   useEffect(() => {
-    const refreshData = () => {
-      const updated = mockReportsService.getReports()
-      setAllReports(updated)
-      setStats(getLiveStats(updated))
+    const refreshData = async () => {
+      let reports = mockReportsService.getReports()
+      try {
+        const res = await fetch("/api/reports")
+        if (res.ok) {
+          const json = await res.json()
+          if (json.success && Array.isArray(json.reports) && json.reports.length > 0) {
+            const liveMap = new Map<string, Report>()
+            json.reports.forEach((r: Report) => {
+              liveMap.set(r.id, r)
+              if (r.publicId) liveMap.set(r.publicId, r)
+            })
+            const nonDuplicateMock = reports.filter((r) => !liveMap.has(r.id) && !liveMap.has(r.publicId))
+            reports = [...json.reports, ...nonDuplicateMock]
+          }
+        }
+      } catch {
+        // Fallback cleanly to local storage / mock reports
+      }
+      setAllReports(reports)
+      setStats(getLiveStats(reports))
     }
     refreshData()
     window.addEventListener("focus", refreshData)

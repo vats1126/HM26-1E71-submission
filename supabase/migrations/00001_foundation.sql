@@ -9,6 +9,9 @@
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+-- Ensure search_path includes extensions schema (standard Supabase extension location)
+SET search_path TO public, extensions;
+
 -- ---------------------------------------------------------------------------
 -- 2. Custom ENUM types (aligned with lib/types.ts)
 -- ---------------------------------------------------------------------------
@@ -86,7 +89,7 @@ COMMENT ON COLUMN profiles.ward_number IS 'Assigned ward, applicable for officia
 -- 5. reports table
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS reports (
-  id                    UUID              PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id                    UUID              PRIMARY KEY DEFAULT gen_random_uuid(),
   public_id             TEXT              NOT NULL UNIQUE,
   reporter_id           UUID              NOT NULL REFERENCES profiles(id),
   category              report_category   NOT NULL,
@@ -145,7 +148,7 @@ COMMENT ON COLUMN reports.is_suspicious IS 'Flagged by AI or community for suspi
 -- 6. report_evidence table
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS report_evidence (
-  id              UUID        PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id              UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   report_id       UUID        NOT NULL REFERENCES reports(id) ON DELETE CASCADE,
   type            TEXT        NOT NULL CHECK (type IN ('image', 'video')),
   url             TEXT        NOT NULL,
@@ -164,7 +167,7 @@ COMMENT ON COLUMN report_evidence.is_after_cleanup IS 'true = after-cleanup evid
 -- 7. report_timeline table
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS report_timeline (
-  id            UUID          PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id            UUID          PRIMARY KEY DEFAULT gen_random_uuid(),
   report_id     UUID          NOT NULL REFERENCES reports(id) ON DELETE CASCADE,
   event_type    TEXT          NOT NULL,
   status        report_status,
@@ -182,7 +185,7 @@ COMMENT ON TABLE report_timeline IS 'Chronological activity log for each report'
 -- 8. notifications table
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS notifications (
-  id               UUID        PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id               UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
   recipient_id     UUID        NOT NULL REFERENCES profiles(id),
   type             TEXT        NOT NULL,
   title            TEXT        NOT NULL,

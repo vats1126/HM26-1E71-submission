@@ -135,13 +135,29 @@ export default function PublicReportDetailPage() {
   const [simulatingAction, setSimulatingAction] = useState<string | null>(null)
 
   // Fetch report data
-  const loadReport = useCallback(() => {
+  const loadReport = useCallback(async () => {
     if (!reportId) {
       setLoading(false)
       return
     }
 
-    const found = mockReportsService.getReport(reportId)
+    let found: Report | null = null
+    try {
+      const res = await fetch(`/api/reports/${encodeURIComponent(reportId)}`)
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          found = json.report
+        }
+      }
+    } catch {
+      // Fallback cleanly to local store
+    }
+
+    if (!found) {
+      found = mockReportsService.getReport(reportId) || null
+    }
+
     if (found) {
       setReport({ ...found })
       if (found.afterMedia && found.afterMedia.length > 0) {
@@ -173,6 +189,26 @@ export default function PublicReportDetailPage() {
     if (!report) return
     setSimulatingAction("claim")
     await new Promise((r) => setTimeout(r, 600))
+
+    try {
+      const res = await fetch(`/api/reports/${report.id}/claim`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: "official" }),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          setReport({ ...json.report })
+          showToast("Report claimed by Ward Officer Mohan Raj!", "success")
+          setSimulatingAction(null)
+          return
+        }
+      }
+    } catch {
+      // Fallback to mock
+    }
+
     const updated = mockReportsService.claimReport(report.id) || mockReportsService.claimReport(report.publicId)
     if (updated) {
       setReport({ ...updated })
@@ -185,6 +221,26 @@ export default function PublicReportDetailPage() {
     if (!report) return
     setSimulatingAction("bounty")
     await new Promise((r) => setTimeout(r, 600))
+
+    try {
+      const res = await fetch(`/api/reports/${report.id}/claim`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role: "ngo" }),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          setReport({ ...json.report })
+          showToast("Cleanup bounty claimed by Mysuru Green Guardians (NGO)!", "success")
+          setSimulatingAction(null)
+          return
+        }
+      }
+    } catch {
+      // Fallback to mock
+    }
+
     const updated = mockReportsService.claimBounty(report.id) || mockReportsService.claimBounty(report.publicId)
     if (updated) {
       setReport({ ...updated })
@@ -197,6 +253,36 @@ export default function PublicReportDetailPage() {
     if (!report) return
     setSimulatingAction("cleanup")
     await new Promise((r) => setTimeout(r, 600))
+
+    try {
+      const res = await fetch(`/api/reports/${report.id}/cleanup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "complete",
+          afterMedia: [
+            {
+              url: "https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?auto=format&fit=crop&w=640&q=80",
+              caption: "Area cleared, swept, and sanitized",
+            },
+          ],
+          notes: "Area cleared, swept, and sanitized",
+        }),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          setReport({ ...json.report })
+          setEvidenceTab("side_by_side")
+          showToast("Cleanup completed! After-evidence uploaded for municipal review.", "success")
+          setSimulatingAction(null)
+          return
+        }
+      }
+    } catch {
+      // Fallback to mock
+    }
+
     const updated = mockReportsService.completeCleanup(report.id) || mockReportsService.completeCleanup(report.publicId)
     if (updated) {
       setReport({ ...updated })
@@ -210,6 +296,26 @@ export default function PublicReportDetailPage() {
     if (!report) return
     setSimulatingAction("verify")
     await new Promise((r) => setTimeout(r, 700))
+
+    try {
+      const res = await fetch(`/api/reports/${report.id}/verify`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ outcome: "VERIFIED" }),
+      })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.report) {
+          setReport({ ...json.report })
+          showToast("AI & Citizen Verification PASS: Issue resolved and verified!", "success")
+          setSimulatingAction(null)
+          return
+        }
+      }
+    } catch {
+      // Fallback to mock
+    }
+
     const updated = mockReportsService.verifyCleanup(report.id) || mockReportsService.verifyCleanup(report.publicId)
     if (updated) {
       setReport({ ...updated })

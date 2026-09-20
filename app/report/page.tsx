@@ -579,16 +579,54 @@ export default function CitizenReportPage() {
         caption: e.label,
       }))
 
-      const created = mockReportsService.createReport({
-        category: category ? category : "garbage_accumulation",
-        latitude: locationData?.latitude ?? MYSRU_CENTER[0],
-        longitude: locationData?.longitude ?? MYSRU_CENTER[1],
-        wardNumber: locationData?.wardNumber ?? 18,
-        description: description.trim(),
-        media: reportMedia,
-        gpsAccuracy: locationData?.accuracy ?? 8,
-        locationName: locationData?.wardName ?? "Ward 18 (Mysuru)",
-      })
+      let created: Report | null = null
+
+      // Attempt submission to live Supabase backend
+      try {
+        const response = await fetch("/api/reports", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            category: category ? category : "garbage_accumulation",
+            latitude: locationData?.latitude ?? MYSRU_CENTER[0],
+            longitude: locationData?.longitude ?? MYSRU_CENTER[1],
+            wardNumber: locationData?.wardNumber ?? 18,
+            wardName: locationData?.wardName ?? "Ward 18 (Mysuru)",
+            locationName: locationData?.wardName ?? "Ward 18 (Mysuru)",
+            description: description.trim(),
+            gpsAccuracy: locationData?.accuracy ?? 8,
+            media: reportMedia.map((m) => ({
+              type: m.type,
+              url: m.url,
+              caption: m.caption,
+              capturedAt: m.capturedAt,
+            })),
+          }),
+        })
+
+        if (response.ok) {
+          const json = await response.json()
+          if (json.success && json.report) {
+            created = json.report
+          }
+        }
+      } catch (netErr) {
+        console.warn("Backend /api/reports unreachable, falling back to local storage:", netErr)
+      }
+
+      // Resilient fallback to local persistence if backend is offline/unconfigured
+      if (!created) {
+        created = mockReportsService.createReport({
+          category: category ? category : "garbage_accumulation",
+          latitude: locationData?.latitude ?? MYSRU_CENTER[0],
+          longitude: locationData?.longitude ?? MYSRU_CENTER[1],
+          wardNumber: locationData?.wardNumber ?? 18,
+          description: description.trim(),
+          media: reportMedia,
+          gpsAccuracy: locationData?.accuracy ?? 8,
+          locationName: locationData?.wardName ?? "Ward 18 (Mysuru)",
+        })
+      }
 
       setSubmittedReport(created)
       setIsSubmitting(false)
