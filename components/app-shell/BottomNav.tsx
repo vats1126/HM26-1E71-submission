@@ -56,7 +56,7 @@ export function BottomNav({ className }: BottomNavProps) {
       role="navigation"
       aria-label="Primary actions"
     >
-      <div className="flex items-center justify-around max-w-lg mx-auto px-2 py-1">
+      <div className="flex items-center justify-around max-w-lg mx-auto px-2 py-1 min-h-14">
         {items.map((item) => {
           const Icon = getIcon(item.icon)
           const active = isActive(item.href)

@@ -49,6 +49,7 @@ import {
 import { StatusBadge } from "@/components/shared/StatusBadge"
 import { useToast } from "@/components/shared/Toast"
 import { cn } from "@/lib/utils"
+import { useRole } from "@/lib/role-context"
 
 type DashboardFilter =
   | "ALL"
@@ -78,6 +79,13 @@ const SAMPLE_AFTER_PHOTOS = [
 
 export default function DashboardPage() {
   const { showToast } = useToast()
+  const { role } = useRole()
+
+  // Operational roles: officer and ngo can perform field actions
+  const isOperational = role === "officer" || role === "ngo"
+  // Only officers can verify resolutions
+  const canVerify = role === "officer"
+
   const [reports, setReports] = useState<Report[]>([])
   const [activeFilter, setActiveFilter] = useState<DashboardFilter>("ALL")
   const [activeTab, setActiveTab] = useState<"queue" | "bounties" | "activity">("queue")
@@ -448,7 +456,7 @@ export default function DashboardPage() {
                   <Building2 size={20} />
                 </span>
                 <h1 className="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight">
-                  CleanCity Operations
+                  Mysuru Janseva Operations
                 </h1>
                 <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                   Official Workspace
@@ -492,6 +500,32 @@ export default function DashboardPage() {
           </div>
         </div>
       </header>
+
+      {/* --------------------------------------------------------------------- */}
+      {/* ROLE INDICATOR BANNER */}
+      {/* --------------------------------------------------------------------- */}
+      {!isOperational && (
+        <div className="bg-amber-50 border-b border-amber-200 px-4 py-2.5">
+          <div className="max-w-7xl mx-auto flex items-center gap-2 text-amber-800 text-sm">
+            <AlertTriangle size={16} className="shrink-0 text-amber-600" />
+            <span className="font-semibold">Read-only view.</span>
+            <span className="text-amber-700">
+              Switch to <strong>Officer</strong> or <strong>NGO</strong> role to access operational controls (Claim, Cleanup, Verify).
+            </span>
+          </div>
+        </div>
+      )}
+      {isOperational && (
+        <div className="bg-civic-green-50 border-b border-civic-green-200 px-4 py-2">
+          <div className="max-w-7xl mx-auto flex items-center gap-2 text-civic-green-800 text-xs font-semibold">
+            <ShieldCheck size={14} className="shrink-0" />
+            <span>
+              Operational access active — Role: <span className="uppercase">{role}</span>
+              {canVerify ? " · Full verification authority" : " · Cleanup & claim authority"}
+            </span>
+          </div>
+        </div>
+      )}
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
         {/* --------------------------------------------------------------------- */}
@@ -927,8 +961,9 @@ export default function DashboardPage() {
 
                               {/* Action Button */}
                               <td className="py-3 px-4 text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
-                                <div className="inline-flex items-center gap-1.5">
-                                  {report.status === "OPEN" && (
+                                 <div className="inline-flex items-center gap-1.5">
+                                  {/* CLAIM — officer or ngo */}
+                                  {isOperational && report.status === "OPEN" && (
                                     <button
                                       type="button"
                                       onClick={() => handleClaim(report)}
@@ -938,7 +973,8 @@ export default function DashboardPage() {
                                     </button>
                                   )}
 
-                                  {report.status === "CLAIMED" && (
+                                  {/* START CLEANUP — officer or ngo */}
+                                  {isOperational && report.status === "CLAIMED" && (
                                     <button
                                       type="button"
                                       onClick={() => handleStartCleanup(report)}
@@ -949,7 +985,8 @@ export default function DashboardPage() {
                                     </button>
                                   )}
 
-                                  {report.status === "CLEANUP_IN_PROGRESS" && (
+                                  {/* MARK COMPLETED (complete cleanup) — officer or ngo */}
+                                  {isOperational && report.status === "CLEANUP_IN_PROGRESS" && (
                                     <button
                                       type="button"
                                       onClick={() => openCleanupModal(report)}
@@ -960,7 +997,8 @@ export default function DashboardPage() {
                                     </button>
                                   )}
 
-                                  {report.status === "PENDING_VERIFICATION" && (
+                                  {/* VERIFY RESOLUTION — officer only */}
+                                  {canVerify && report.status === "PENDING_VERIFICATION" && (
                                     <button
                                       type="button"
                                       onClick={() => openVerifyModal(report)}
@@ -978,7 +1016,8 @@ export default function DashboardPage() {
                                     </span>
                                   )}
 
-                                  {report.status === "BOUNTY" && (
+                                  {/* CLAIM BOUNTY — officer or ngo */}
+                                  {isOperational && report.status === "BOUNTY" && (
                                     <button
                                       type="button"
                                       onClick={() => handleClaimBounty(report)}
@@ -989,7 +1028,8 @@ export default function DashboardPage() {
                                     </button>
                                   )}
 
-                                  {report.status === "REOPENED" && (
+                                  {/* RE-CLAIM — officer or ngo */}
+                                  {isOperational && report.status === "REOPENED" && (
                                     <button
                                       type="button"
                                       onClick={() => handleClaim(report)}
@@ -1067,7 +1107,7 @@ export default function DashboardPage() {
 
                             {/* Mobile Actions */}
                             <div>
-                              {report.status === "OPEN" && (
+                              {isOperational && report.status === "OPEN" && (
                                 <button
                                   type="button"
                                   onClick={() => handleClaim(report)}
@@ -1076,7 +1116,7 @@ export default function DashboardPage() {
                                   Claim
                                 </button>
                               )}
-                              {report.status === "CLAIMED" && (
+                              {isOperational && report.status === "CLAIMED" && (
                                 <button
                                   type="button"
                                   onClick={() => handleStartCleanup(report)}
@@ -1085,7 +1125,7 @@ export default function DashboardPage() {
                                   Start Cleanup
                                 </button>
                               )}
-                              {report.status === "CLEANUP_IN_PROGRESS" && (
+                              {isOperational && report.status === "CLEANUP_IN_PROGRESS" && (
                                 <button
                                   type="button"
                                   onClick={() => openCleanupModal(report)}
@@ -1094,7 +1134,7 @@ export default function DashboardPage() {
                                   Upload Proof
                                 </button>
                               )}
-                              {report.status === "PENDING_VERIFICATION" && (
+                              {canVerify && report.status === "PENDING_VERIFICATION" && (
                                 <button
                                   type="button"
                                   onClick={() => openVerifyModal(report)}
@@ -1106,7 +1146,7 @@ export default function DashboardPage() {
                               {report.status === "VERIFIED" && (
                                 <span className="text-emerald-700 font-bold text-xs">Verified ✓</span>
                               )}
-                              {report.status === "BOUNTY" && (
+                              {isOperational && report.status === "BOUNTY" && (
                                 <button
                                   type="button"
                                   onClick={() => handleClaimBounty(report)}
@@ -1191,7 +1231,7 @@ export default function DashboardPage() {
                         <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg">
                           Completed & Awarded ✓
                         </span>
-                      ) : (
+                      ) : isOperational ? (
                         <button
                           type="button"
                           onClick={() => handleClaimBounty(report)}
@@ -1199,6 +1239,8 @@ export default function DashboardPage() {
                         >
                           CLAIM BOUNTY
                         </button>
+                      ) : (
+                        <span className="text-xs text-gray-400 italic">Officer/NGO only</span>
                       )}
                     </div>
                   </div>
@@ -1310,7 +1352,7 @@ export default function DashboardPage() {
               {/* Contextual Action Bar */}
               <div className="p-3 bg-gray-50 border border-gray-200 rounded-xl space-y-2">
                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">
-                  Available Operations Action
+                  Mysuru Janseva Operations Action
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {currentDetailReport.status === "OPEN" && (

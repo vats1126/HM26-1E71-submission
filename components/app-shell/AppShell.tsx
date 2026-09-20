@@ -20,7 +20,7 @@ export function AppShell({ children }: AppShellProps) {
           <OfflineBanner />
           <Navbar />
           <RoleGate>
-            <main className="pb-24 md:pb-0">
+            <main className="pb-28 md:pb-0 overflow-x-hidden">
               {children}
             </main>
           </RoleGate>

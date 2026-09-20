@@ -1,4 +1,4 @@
-// Notification system for CleanCity
+// Notification system for Mysuru Janseva
 // Lightweight local/demo notifications backed by localStorage
 
 export type NotificationType =

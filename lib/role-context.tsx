@@ -248,6 +248,8 @@ interface RoleContextType {
   track: RoleTrackInfo | null
   setRole: (role: DemoRole) => void
   isFirstVisit: boolean
+  /** True while localStorage has not yet been read (pre-hydration). RoleGate must not redirect during this window. */
+  isHydrating: boolean
   clearRole: () => void
 }
 
@@ -283,17 +285,18 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
 
   const track = role ? getRoleTrack(role) : null
 
-  // Prevent hydration mismatch
+  // Prevent hydration mismatch — NEVER expose isFirstVisit:true before localStorage is read,
+  // because that would cause RoleGate to redirect every refresh to /welcome.
   if (!mounted) {
     return (
-      <RoleContext.Provider value={{ role: null, track: null, setRole, isFirstVisit: true, clearRole }}>
+      <RoleContext.Provider value={{ role: null, track: null, setRole, isFirstVisit: false, isHydrating: true, clearRole }}>
         {children}
       </RoleContext.Provider>
     )
   }
 
   return (
-    <RoleContext.Provider value={{ role, track, setRole, isFirstVisit, clearRole }}>
+    <RoleContext.Provider value={{ role, track, setRole, isFirstVisit, isHydrating: false, clearRole }}>
       {children}
     </RoleContext.Provider>
   )

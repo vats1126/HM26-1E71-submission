@@ -184,9 +184,6 @@ export default function MapSection({
           <div className="fade-in bg-white/95 backdrop-blur-md rounded-xl border border-gray-200/80 shadow-xl p-4">
             <ReportPreviewCard
               report={selectedReport}
-              onClick={() => {
-                window.location.href = `/report/${selectedReport.publicId}`
-              }}
             />
             <div className="mt-3 flex gap-2">
               <button
@@ -200,7 +197,7 @@ export default function MapSection({
                 href={`/report/${selectedReport.publicId}`}
                 className="flex-1 py-2 rounded-lg bg-civic-green-600 hover:bg-civic-green-700 text-white text-xs font-semibold text-center transition-colors shadow-sm"
               >
-                View Full Detail →
+                View Report →
               </Link>
             </div>
           </div>
@@ -354,9 +351,6 @@ export default function MapSection({
 
               <ReportPreviewCard
                 report={selectedReport}
-                onClick={() => {
-                  window.location.href = `/report/${selectedReport.publicId}`
-                }}
               />
 
               <div className="flex gap-2 pt-1">
@@ -371,7 +365,7 @@ export default function MapSection({
                   href={`/report/${selectedReport.publicId}`}
                   className="flex-1 py-2.5 rounded-xl bg-civic-green-600 hover:bg-civic-green-700 text-white text-xs font-bold text-center shadow-md active:scale-95 transition-all flex items-center justify-center gap-1"
                 >
-                  <span>View Details</span>
+                  <span>View Report</span>
                   <span>→</span>
                 </Link>
               </div>

@@ -336,7 +336,7 @@ export function LiveActivity({ events, className, showLiveIndicator = true }: Li
 
 interface ReportPreviewCardProps {
   report: Report
-  onClick: () => void
+  onClick?: () => void
 }
 
 export function ReportPreviewCard({ report, onClick }: ReportPreviewCardProps) {
@@ -346,7 +346,7 @@ export function ReportPreviewCard({ report, onClick }: ReportPreviewCardProps) {
       onClick={onClick}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === "Enter" && onClick()}
+      onKeyDown={(e) => e.key === "Enter" && onClick?.()}
       aria-label={`View report ${report.publicId}`}
     >
       <div className="flex items-start justify-between gap-2 mb-2">
@@ -409,7 +409,7 @@ export function ReportPreviewCard({ report, onClick }: ReportPreviewCardProps) {
       )}
 
       <button
-        onClick={(e) => { e.stopPropagation(); onClick() }}
+        onClick={(e) => { e.stopPropagation(); onClick?.() }}
         className="w-full py-2 rounded-lg bg-civic-green-600 hover:bg-civic-green-700 text-white text-xs font-semibold transition-colors"
       >
         View Report

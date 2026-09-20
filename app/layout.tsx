@@ -3,8 +3,8 @@ import { AppShell } from "@/components/app-shell/AppShell"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "CleanCity — Mysuru Civic Reporting",
-  description: "Report civic issues in Mysuru. Track them. Act on them. Verify them. Real-time civic accountability.",
+  title: "Mysuru Janseva — Mysuru Civic Reporting",
+  description: "Mysuru Janseva — Report civic issues in Mysuru. Track them. Act on them. Verify them. Real-time civic accountability.",
   icons: {
     icon: [
       {

@@ -27,8 +27,8 @@ export async function POST(
     }
 
     const verifier = {
-      id: body.verifier?.id || SEED_PROFILES.official1,
-      name: body.verifier?.name || "Mohan Raj",
+      id: body.verifier?.id || SEED_PROFILES.verifier1,
+      name: body.verifier?.name || "S. Suresh (Ward Inspector)",
       role: (body.verifier?.role || "official") as "official" | "citizen" | "ngo",
     };
 

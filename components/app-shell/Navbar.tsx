@@ -62,12 +62,12 @@ export function Navbar({ className }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 group" aria-label="CleanCity home">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 group" aria-label="Mysuru Janseva home">
             <div className="w-8 h-8 rounded-lg bg-civic-green-600 flex items-center justify-center group-hover:bg-civic-green-700 transition-colors">
               <ShieldCheck size={18} className="text-white" />
             </div>
             <div className="hidden sm:block">
-              <span className="text-lg font-bold text-gray-900 tracking-tight">CleanCity</span>
+              <span className="text-lg font-bold text-gray-900 tracking-tight">Mysuru Janseva</span>
               <span className="text-xs text-gray-500 ml-1.5 font-medium">Mysuru</span>
             </div>
           </Link>
@@ -231,7 +231,7 @@ export function Navbar({ className }: NavbarProps) {
                   <div className="absolute right-0 top-full mt-1 w-56 rounded-xl border border-gray-200 bg-white shadow-lg py-1.5 z-20 scale-in">
                     <div className="px-3 py-2 border-b border-gray-100">
                       <p className="text-sm font-semibold text-gray-900">You (Demo Citizen)</p>
-                      <p className="text-xs text-gray-500">citizen@cleancity.in</p>
+                      <p className="text-xs text-gray-500">citizen@mysurujanaseva.in</p>
                     </div>
                     <div className="py-1">
                       <Link href="/profile" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">

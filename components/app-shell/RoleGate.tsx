@@ -1,32 +1,37 @@
 "use client"
 
-import React from "react"
+import React, { useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { useRole } from "@/lib/role-context"
-import { useEffect } from "react"
 
 interface RoleGateProps {
   children: React.ReactNode
 }
 
 export function RoleGate({ children }: RoleGateProps) {
-  const { role, isFirstVisit } = useRole()
+  const { role, isFirstVisit, isHydrating } = useRole()
   const pathname = usePathname()
   const router = useRouter()
 
   useEffect(() => {
-    // If no role selected and not already on welcome page, redirect
-    if (isFirstVisit && !role && pathname !== "/welcome") {
+    // Only redirect AFTER hydration is complete, role is confirmed absent, and it's a first visit.
+    // Never redirect during isHydrating (pre-localStorage phase) to avoid spurious /welcome redirect on refresh.
+    if (!isHydrating && isFirstVisit && !role && pathname !== "/welcome") {
       router.replace("/welcome")
     }
-  }, [isFirstVisit, role, pathname, router])
+  }, [isHydrating, isFirstVisit, role, pathname, router])
 
-  // Don't block the welcome page from rendering
+  // Always render the welcome page without any gate check
   if (pathname === "/welcome") {
     return <>{children}</>
   }
 
-  // If no role yet (first visit) and not on welcome page, show nothing while redirecting
+  // During hydration: render children so the page isn't blank while localStorage is loading
+  if (isHydrating) {
+    return <>{children}</>
+  }
+
+  // After hydration: if genuinely a first visit with no role, show nothing while redirect fires
   if (isFirstVisit && !role) {
     return null
   }

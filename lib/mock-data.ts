@@ -40,7 +40,7 @@ export const MOCK_USERS: Record<string, User> = {
     badges: [
       { type: "civic_reporter", label: "Civic Reporter", description: "Submitted 10+ reports", icon: "Megaphone", earnedAt: "2025-06-12" },
       { type: "cleanup_champion", label: "Cleanup Champion", description: "Reported 5 successfully verified issues", icon: "Award", earnedAt: "2025-08-20" },
-      { type: "early_adopter", label: "Early Adopter", description: "Among the first CleanCity users", icon: "Star", earnedAt: "2025-03-01" },
+      { type: "early_adopter", label: "Early Adopter", description: "Among the first Mysuru Janseva users", icon: "Star", earnedAt: "2025-03-01" },
     ],
     joinedAt: "2025-03-01",
   },
@@ -94,7 +94,7 @@ export const MOCK_USERS: Record<string, User> = {
   currentUser: {
     id: "currentUser",
     name: "You (Demo Citizen)",
-    email: "citizen@cleancity.in",
+    email: "citizen@mysurujanaseva.in",
     avatar: "https://i.pravatar.cc/150?img=12",
     role: "citizen",
     trustScore: 72,
@@ -103,7 +103,7 @@ export const MOCK_USERS: Record<string, User> = {
     followUpsSubmitted: 1,
     verifiedContributions: 0,
     badges: [
-      { type: "early_adopter", label: "Early Adopter", description: "Joined CleanCity early", icon: "Star", earnedAt: "2025-08-01" },
+      { type: "early_adopter", label: "Early Adopter", description: "Joined Mysuru Janseva early", icon: "Star", earnedAt: "2025-08-01" },
     ],
     joinedAt: "2025-08-01",
   },

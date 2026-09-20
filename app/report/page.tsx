@@ -405,7 +405,11 @@ export default function CitizenReportPage() {
       streamRef.current = stream
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        videoRef.current.play()
+        try {
+          await videoRef.current.play()
+        } catch {
+          // play() may throw on some browsers if interrupted; stream still renders via autoPlay
+        }
       }
       setIsCameraActive(true)
     } catch {
@@ -859,7 +863,7 @@ export default function CitizenReportPage() {
                       Location Permission Required
                     </h3>
                     <p className="text-xs text-gray-600 mt-1 leading-relaxed">
-                      Clean City needs your current location to send this report to the correct civic authority and municipal ward officer.
+                      Mysuru Janseva needs your current location to send this report to the correct civic authority and municipal ward officer.
                     </p>
                   </div>
                 </div>
@@ -868,7 +872,7 @@ export default function CitizenReportPage() {
                   <p className="font-semibold text-gray-700">Why location is mandatory:</p>
                   <p>• Ensures jurisdiction-based automatic ward routing (Wards 1–21)</p>
                   <p>• Prevents duplicate municipal field responses</p>
-                  <p>• Clean City stops tracking immediately after acquiring position</p>
+                  <p>• Mysuru Janseva stops tracking immediately after acquiring position</p>
                 </div>
 
                 <div className="space-y-2 pt-2">
@@ -1182,7 +1186,7 @@ export default function CitizenReportPage() {
                       Location permission required
                     </h3>
                     <p className="text-xs text-status-red-700 mt-1 leading-relaxed">
-                      Clean City uses your current location to route this report to the appropriate civic authority.
+                      Mysuru Janseva uses your current location to route this report to the appropriate civic authority.
                     </p>
                   </div>
                 </div>
@@ -1396,7 +1400,7 @@ export default function CitizenReportPage() {
         {/* STEP 2: EVIDENCE                                          */}
         {/* ========================================================= */}
         {currentStep === "evidence" && (
-          <div className="space-y-4 animate-in fade-in duration-200">
+          <div className="space-y-4 animate-in fade-in duration-200 pb-20">
             {/* Header Card */}
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
               <div className="flex items-start justify-between gap-3">
@@ -1456,41 +1460,88 @@ export default function CitizenReportPage() {
 
             {/* Camera Viewfinder */}
             {activeTab === "camera" && (
-              <div className="relative rounded-2xl border border-gray-800 bg-black overflow-hidden shadow-lg aspect-video max-h-[360px] flex items-center justify-center">
-                {isCameraActive ? (
-                  <>
-                    <video
-                      ref={videoRef}
-                      playsInline
-                      autoPlay
-                      muted
-                      className="w-full h-full object-cover"
-                    />
+              <div className="w-full max-w-2xl mx-auto">
+                {/* Camera Preview Container — stable 4:3 aspect ratio, centered */}
+                <div className="relative w-full aspect-[4/3] sm:aspect-video bg-black rounded-2xl overflow-hidden shadow-lg border border-gray-800">
+                  {/* Video element always mounted so ref is available; hidden when camera inactive */}
+                  <video
+                    ref={videoRef}
+                    playsInline
+                    autoPlay
+                    muted
+                    className={cn(
+                      "absolute inset-0 w-full h-full object-cover",
+                      isCameraActive ? "opacity-100" : "opacity-0"
+                    )}
+                  />
 
-                    {/* Camera Overlay Guide */}
-                    <div className="absolute inset-0 pointer-events-none border border-white/20 m-6 rounded-xl flex items-center justify-center">
-                      <div className="w-12 h-12 border-t-2 border-l-2 border-white/60 absolute top-0 left-0" />
-                      <div className="w-12 h-12 border-t-2 border-r-2 border-white/60 absolute top-0 right-0" />
-                      <div className="w-12 h-12 border-b-2 border-l-2 border-white/60 absolute bottom-0 left-0" />
-                      <div className="w-12 h-12 border-b-2 border-r-2 border-white/60 absolute bottom-0 right-0" />
+                  {/* Loading / Error overlay — shown when camera is NOT active */}
+                  {!isCameraActive && (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 space-y-3">
+                      <div className="p-3 rounded-full bg-white/10 text-white w-fit">
+                        <Camera size={28} />
+                      </div>
+                      {cameraUnavailable ? (
+                        <div className="space-y-2">
+                          <p className="text-sm font-semibold text-white">Camera Unavailable</p>
+                          <p className="text-xs text-gray-400 max-w-xs mx-auto">
+                            Camera permission was denied or no camera device was detected. Use File Upload instead.
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => setActiveTab("upload")}
+                            className="mt-3 px-4 py-2 rounded-xl bg-civic-green-600 text-white text-xs font-bold shadow-sm"
+                          >
+                            Switch to File Upload
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="space-y-1">
+                          <p className="text-sm font-semibold text-white">Starting Camera...</p>
+                          <button
+                            type="button"
+                            onClick={startCamera}
+                            className="text-xs text-civic-green-400 hover:underline"
+                          >
+                            Click to retry camera access
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Camera Overlay Guide corners — only when active */}
+                  {isCameraActive && (
+                    <div className="absolute inset-0 pointer-events-none m-6 rounded-xl flex items-center justify-center">
+                      <div className="w-10 h-10 border-t-2 border-l-2 border-white/60 absolute top-0 left-0 rounded-tl-lg" />
+                      <div className="w-10 h-10 border-t-2 border-r-2 border-white/60 absolute top-0 right-0 rounded-tr-lg" />
+                      <div className="w-10 h-10 border-b-2 border-l-2 border-white/60 absolute bottom-0 left-0 rounded-bl-lg" />
+                      <div className="w-10 h-10 border-b-2 border-r-2 border-white/60 absolute bottom-0 right-0 rounded-br-lg" />
                       <p className="text-[11px] text-white/70 bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">
                         Center issue in frame
                       </p>
                     </div>
+                  )}
 
-                    {/* Controls Bar */}
-                    <div className="absolute bottom-4 left-0 right-0 flex items-center justify-around px-6">
-                      {/* Flip Camera */}
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setCameraFacingMode((prev) => (prev === "environment" ? "user" : "environment"))
-                        }}
-                        className="p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/30 transition-all active:scale-95"
-                        title="Switch Camera"
-                      >
-                        <SwitchCamera size={20} />
-                      </button>
+                  {/* Switch Camera — top-right overlay, only when active */}
+                  {isCameraActive && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setCameraFacingMode((prev) => (prev === "environment" ? "user" : "environment"))
+                      }
+                      className="absolute top-3 right-3 p-2.5 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/60 transition-all active:scale-95 shadow-md"
+                      title="Switch Camera"
+                    >
+                      <SwitchCamera size={18} />
+                    </button>
+                  )}
+
+                  {/* Bottom Controls Bar — gradient overlay */}
+                  {isCameraActive && (
+                    <div className="absolute bottom-0 inset-x-0 pt-10 pb-4 px-6 bg-gradient-to-t from-black/70 to-transparent flex items-center justify-around">
+                      {/* Spacer left (placeholder for symmetry) */}
+                      <div className="w-12 h-12" />
 
                       {/* Shutter Button */}
                       <button
@@ -1510,50 +1561,18 @@ export default function CitizenReportPage() {
                         </div>
                       </button>
 
-                      {/* Quick Sample Button */}
+                      {/* Demo Photo Button */}
                       <button
                         type="button"
                         onClick={addSamplePhoto}
-                        className="p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/30 transition-all active:scale-95 text-xs font-bold"
+                        className="p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/30 transition-all active:scale-95"
                         title="Add Demo Photo"
                       >
                         <Sparkles size={20} />
                       </button>
                     </div>
-                  </>
-                ) : (
-                  <div className="text-center p-6 space-y-3">
-                    <div className="p-3 rounded-full bg-white/10 text-white w-fit mx-auto">
-                      <Camera size={28} />
-                    </div>
-                    {cameraUnavailable ? (
-                      <div>
-                        <p className="text-sm font-semibold text-white">Camera Unavailable</p>
-                        <p className="text-xs text-gray-400 mt-1 max-w-xs mx-auto">
-                          Camera permission was denied or no camera device was detected. Please use the Upload fallback below.
-                        </p>
-                        <button
-                          type="button"
-                          onClick={() => setActiveTab("upload")}
-                          className="mt-3 px-4 py-2 rounded-xl bg-civic-green-600 text-white text-xs font-bold shadow-sm"
-                        >
-                          Switch to File Upload
-                        </button>
-                      </div>
-                    ) : (
-                      <div>
-                        <p className="text-sm font-semibold text-white">Starting Camera...</p>
-                        <button
-                          type="button"
-                          onClick={startCamera}
-                          className="mt-2 text-xs text-civic-green-400 hover:underline"
-                        >
-                          Click to retry camera access
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             )}
 

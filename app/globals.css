@@ -32,6 +32,12 @@
   border-color: #e5e7eb;
 }
 
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   background-color: #ffffff;
   color: #111827;
@@ -39,6 +45,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   font-family: Inter, system-ui, sans-serif;
+}
+
+/* Safe-area inset utilities for notched/home-indicator devices */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
 }
 
 ::selection {

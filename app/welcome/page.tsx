@@ -45,7 +45,7 @@ export default function WelcomePage() {
             </div>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-            Welcome to CleanCity
+            Welcome to Mysuru Janseva
           </h1>
           <p className="text-base sm:text-lg text-gray-600 font-medium">
             Mysuru&apos;s Civic Issue Reporting Platform
