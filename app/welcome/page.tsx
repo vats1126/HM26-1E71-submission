@@ -45,13 +45,13 @@ export default function WelcomePage() {
             </div>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
-            Welcome to Mysuru Janseva
+            Who are you?
           </h1>
           <p className="text-base sm:text-lg text-gray-600 font-medium">
-            Mysuru&apos;s Civic Issue Reporting Platform
+            Welcome to Mysuru Janseva — Mysuru&apos;s Civic Issue Reporting Platform
           </p>
-          <p className="text-sm text-gray-500 pt-2 font-medium">
-            Select your demo role to get started
+          <p className="text-sm text-gray-500 pt-1 font-medium">
+            Select your role to get started:
           </p>
         </div>
 

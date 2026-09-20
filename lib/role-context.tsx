@@ -253,7 +253,8 @@ interface RoleContextType {
   clearRole: () => void
 }
 
-const STORAGE_KEY = "cleancity_demo_role"
+const SESSION_KEY = "cleancity_demo_role"
+const LEGACY_STORAGE_KEY = "cleancity_demo_role"
 
 const RoleContext = createContext<RoleContextType | undefined>(undefined)
 
@@ -264,23 +265,50 @@ export function RoleProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true)
-    const stored = localStorage.getItem(STORAGE_KEY) as DemoRole | null
-    if (stored && stored in ROLE_CONFIG) {
-      setRoleState(stored)
-      setIsFirstVisit(false)
+
+    // Remove any stale legacy localStorage role to avoid auto-restoring an old role across sessions
+    try {
+      localStorage.removeItem(LEGACY_STORAGE_KEY)
+    } catch {
+      // Ignore storage access errors
+    }
+
+    // Active session persistence uses sessionStorage:
+    // Fresh tab/session starts clean, while refresh within the same session preserves the role.
+    try {
+      const stored = sessionStorage.getItem(SESSION_KEY) as DemoRole | null
+      if (stored && stored in ROLE_CONFIG) {
+        setRoleState(stored)
+        setIsFirstVisit(false)
+      } else {
+        setRoleState(null)
+        setIsFirstVisit(true)
+      }
+    } catch {
+      setRoleState(null)
+      setIsFirstVisit(true)
     }
   }, [])
 
   const setRole = (newRole: DemoRole) => {
     setRoleState(newRole)
     setIsFirstVisit(false)
-    localStorage.setItem(STORAGE_KEY, newRole)
+    try {
+      sessionStorage.setItem(SESSION_KEY, newRole)
+    } catch {
+      // Ignore storage access errors
+    }
   }
 
   const clearRole = () => {
     setRoleState(null)
     setIsFirstVisit(true)
-    localStorage.removeItem(STORAGE_KEY)
+    try {
+      sessionStorage.removeItem(SESSION_KEY)
+      localStorage.removeItem(LEGACY_STORAGE_KEY)
+    } catch {
+      // Ignore storage access errors
+    }
   }
 
   const track = role ? getRoleTrack(role) : null
