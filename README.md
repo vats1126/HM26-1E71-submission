@@ -147,4 +147,4 @@ You will need a Supabase project and a `.env.local` file with its keys — detai
 
 ## License
 
-`<MIT / Apache-2.0 / None>`. You retain full ownership of your code.
+`Bug Busters`. You retain full ownership of your code.
