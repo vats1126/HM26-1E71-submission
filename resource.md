@@ -2,125 +2,149 @@
 
 > **This is the landing file for your submission.** Reviewers open this file first.
 > Every evaluation artifact is uploaded to **Google Drive** and linked below. No files in the repo, no other platforms.
-> Freeze: **20 September 2026, 23:59 IST.** Anything not linked here before the freeze does not exist for judging.
-
-<!--
-HOW TO FILL THIS FILE
-1. Replace every <placeholder>. Delete these HTML comments if you like (they don't render on GitHub).
-2. Use a PERSONAL Gmail account for uploads. Many college Google Workspace accounts block
-   "Anyone with the link" sharing outside the college domain, and reviewers will see "Request access".
-3. Share each FILE (not a folder) as: General access → "Anyone with the link" → Viewer.
-4. Test every link in an incognito/private window before the deadline.
-5. Do not replace or re-upload a file after the freeze. Reviewers compare the SHA-256 below.
--->
+> **Freeze: 20 September 2026, 23:59 IST.** Anything not linked here before the freeze does not exist for judging.
 
 ---
 
 ## 1. Team Details
 
-| Field | Value |
-|---|---|
-| Team ID (from dashboard) | `<HM26-1E71>` |
-| Team Name | `<Bug Busters>` |
-| College(s) | `<Maharaja Institute of Technology Mysore>` |
-| Team Leader | `<Varun P>` · `<varunrao246@gmail.com>` · `<9108365820>` |
-| Repository | `<https://github.com/vats1126/HM26-1E71-submission.git>` |
+| Field       | Value                                                  |
+| ----------- | ------------------------------------------------------ |
+| Team ID     | `HM26-1E71`                                            |
+| Team Name   | `Bug Busters`                                          |
+| College     | `Maharaja Institute of Technology Mysore`              |
+| Team Leader | `Varun P` · `varunrao246@gmail.com` · `9108365820`     |
+| Repository  | `https://github.com/vats1126/HM26-1E71-submission.git` |
 
-| # | Member | Program & Year | GitHub Handle |
-|---|---|---|---|---|
-| 1 | `<Varun P>` (Lead) | `<B.E. CSE, 3rd yr>` | `@varunrao246` |
-| 2 | `Vivek Urs G A` | `B.E. CSE, 3rd yr` | `@vats1126>` | 
-| 3 | `Syed Naheed Ahmed` | `B.E. CSE, 3rd yr` | `@n4heed` | 
-| 4 | `Vignesh Kumar M` | `B.E. CSE, 3rd yr` | `@VigneshKumar2709` | 
+| # | Member              | Program & Year       | GitHub Handle       |
+| - | ------------------- | -------------------- | ------------------- |
+| 1 | `Varun P` — Lead    | `B.E. CSE, 3rd Year` | `@varunrao246`      |
+| 2 | `Vivek Urs G A`     | `B.E. CSE, 3rd Year` | `@vats1126`         |
+| 3 | `Syed Naheed Ahmed` | `B.E. CSE, 3rd Year` | `@n4heed`           |
+| 4 | `Vignesh Kumar M`   | `B.E. CSE, 3rd Year` | `@VigneshKumar2709` |
 
 ---
 
-## 2. What We Built (one-liner)
+## 2. What We Built
 
-**Sub-problem:** `<Routing | Follow-through | Visibility | Verification | Detection without reporting | Segregation drift | Hotspot pattern-finding | Field worker feedback loop | Own: ____>`
+**Sub-problem:** `Routing | Follow-through | Visibility | Verification`
 
-**In one sentence:** `<e.g. "An offline-first reporting app that auto-routes complaints to MCC, town panchayat or gram panchayat using ward boundaries and issue type, with a confidence score for boundary cases.">`
+**In one sentence:**
+
+> **An offline-first civic grievance management platform that enables citizens to report local issues, routes complaints through the appropriate administrative workflow, helps staff track and resolve them, and provides citizens with visibility into the status and resolution of their complaints.**
+
+### Core Workflow
+
+**Citizen Report → Validation → Routing → Staff Action → Resolution → Citizen Visibility**
+
+The platform is designed to address the gap between reporting a civic issue and ensuring that the issue is actually tracked through to resolution.
 
 ---
 
 ## 3. Repository Documents
 
-| Document | What it covers |
-|---|---|
-| [README.md](./README.md) | Problem, users, solution overview, links to everything below |
-| [ai.md](./ai.md) | AI tools used in development and AI/ML inside the product |
-| [docs/architecture.md](./docs/architecture.md) | Diagram, components, data model, APIs, tech stack |
-| [docs/constraints.md](./docs/constraints.md) | How we handle the five hard constraints |
-| [docs/setup.md](./docs/setup.md) | Local setup, seed data, offline testing |
-| [docs/limitations.md](./docs/limitations.md) | Known gaps, edge cases, scaling roadmap |
-| [resource-templates/](./resource-templates/) | Templates & guides for the video, decision log, and presentation |
+| Document                                       | What it covers                                                                    |
+| ---------------------------------------------- | --------------------------------------------------------------------------------- |
+| [README.md](./README.md)                       | Project overview, problem statement, users, solution and setup                    |
+| [ai.md](./ai.md)                               | AI tools used during development and AI/ML capabilities used in the product       |
+| [docs/architecture.md](./docs/architecture.md) | System architecture, components, data flow, data model, APIs and technology stack |
+| [docs/constraints.md](./docs/constraints.md)   | Approach to the major technical and operational constraints                       |
+| [docs/setup.md](./docs/setup.md)               | Local installation, configuration, seed data and testing instructions             |
+| [docs/limitations.md](./docs/limitations.md)   | Known limitations, edge cases and future improvements                             |
+| [resource-templates/](./resource-templates/)   | Templates and guides for the video, decision log and presentation                 |
 
 ---
 
-## 4. Submission Artifacts (Google Drive)
+## 4. Submission Artifacts — Google Drive
 
-| # | Artifact | Google Drive Link | File Name | SHA-256 (first 16 chars) |
-|---|---|---|---|---|
-| 1 | [Pitch + Code Walkthrough Video](./resource-templates/video-guide.md) (≤ 10 min, MP4) | `<https://drive.google.com/file/d/.../view>` | `<TeamID>_video.mp4` | `<a1b2c3d4e5f60718>` |
-| 2 | [Decision Log](./resource-templates/decision-log-template.md) (1 page, PDF) | `<https://drive.google.com/file/d/.../view>` | `<TeamID>_decision-log.pdf` | `<...>` |
-| 3 | [Presentation](./resource-templates/presentation-template.md) (≤ 10 slides, PDF) | `<https://drive.google.com/file/d/.../view>` | `<TeamID>_presentation.pdf` | `<...>` |
+| # | Artifact                                                                              | Google Drive Link                  | File Name                  | SHA-256 — First 16 Characters |
+| - | ------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------- | ----------------------------- |
+| 1 | [Pitch + Code Walkthrough Video](./resource-templates/video-guide.md) — ≤ 10 min, MP4 | `<GOOGLE DRIVE VIDEO LINK>`        | `<VIDEO FILE NAME>`        | `<SHA-256>`                   |
+| 2 | [Decision Log](./resource-templates/decision-log-template.md) — 1 page, PDF           | `<GOOGLE DRIVE DECISION LOG LINK>` | `<DECISION LOG FILE NAME>` | `<SHA-256>`                   |
+| 3 | [Presentation](./resource-templates/presentation-template.md) — ≤ 10 slides, PDF      | `<GOOGLE DRIVE PRESENTATION LINK>` | `<PRESENTATION FILE NAME>` | `<SHA-256>`                   |
 
-<!--
-Get the hash:
-  macOS / Linux : shasum -a 256 <file>      (or sha256sum <file>)
-  Windows       : certutil -hashfile <file> SHA256
-Paste the first 16 characters.
--->
+### SHA-256
+
+Calculate the hash on macOS/Linux using:
+
+```bash
+shasum -a 256 <file>
+```
+
+Use only the **first 16 characters** in the table above.
+
+---
 
 ### Video Chapters
 
-| Timestamp | Section |
-|---|---|
-| `00:00` | Part 1: Problem & target users |
-| `00:40` | Part 1: Live demo, core flow |
-| `01:50` | Part 1: Bad-input handling |
-| `02:30` | Part 1: Offline / airplane mode |
-| `03:00` | Part 2: Architecture overview |
-| `04:30` | Part 2: Data model & APIs |
-| `05:30` | Part 2: Key code walkthrough |
-| `07:30` | Part 2: Decisions & trade-offs |
-| `08:30` | Part 2: Scaling & limitations |
-| `09:15` | Part 2: AI usage (see [ai.md](./ai.md)) |
+| Timestamp | Section                                       |
+| --------- | --------------------------------------------- |
+| `00:00`   | Part 1: Problem & target users                |
+| `00:40`   | Part 1: Live demo — core complaint flow       |
+| `01:50`   | Part 1: Input validation & bad-input handling |
+| `02:30`   | Part 1: Offline / airplane mode               |
+| `03:00`   | Part 2: Architecture overview                 |
+| `04:30`   | Part 2: Data model & APIs                     |
+| `05:30`   | Part 2: Key code walkthrough                  |
+| `07:30`   | Part 2: Decisions & trade-offs                |
+| `08:30`   | Part 2: Scaling & limitations                 |
+| `09:15`   | Part 2: AI usage — see [ai.md](./ai.md)       |
 
 ---
 
 ## 5. Live MVP
 
-| Field | Value |
-|---|---|
-| Live URL | `<https://...>` |
-| Platform | `<Web / PWA / Android APK link on Drive / ...>` |
-| Test login (if any) | Citizen: `<user / pass>` · Staff: `<user / pass>` · Admin: `<user / pass>` |
-| Sample data loaded? | `<Yes — 120 synthetic complaints across 6 wards>` |
-| How to test offline mode | `<one line>`. Full steps in [docs/setup.md](./docs/setup.md#testing-offline-mode) |
-| If the live link is down | Follow [docs/setup.md](./docs/setup.md) |
+| Field                    | Value                                                                                                                                              |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Live URL                 | `<LIVE MVP URL — TO BE ADDED>`                                                                                                                     |
+| Platform                 | `Web Application / PWA`                                                                                                                            |
+| Test Login               | `To be provided if authentication is enabled`                                                                                                      |
+| Sample Data              | `Synthetic/demo data for demonstrating the civic complaint workflow`                                                                               |
+| Offline Mode             | `Open the application, disconnect the network or enable airplane mode, create a complaint and verify that the offline workflow remains available.` |
+| Detailed Offline Testing | See [docs/setup.md](./docs/setup.md#testing-offline-mode)                                                                                          |
+| If Live Link Is Down     | Follow [docs/setup.md](./docs/setup.md) to run the application locally                                                                             |
 
 ---
 
-## 6. Quick Reviewer Path (≤ 3 minutes)
+## 6. Quick Reviewer Path — ≤ 3 Minutes
 
-<!-- Tell a reviewer exactly what to click to see your core value. Keep it to 3–5 steps. -->
+The following path demonstrates the core end-to-end workflow:
 
-1. `<Open the live URL and log in as Citizen>`
-2. `<Report a blocked drain at the pre-filled boundary location>`
-3. `<Observe the routing decision + confidence score>`
-4. `<Log in as Staff → see it in the panchayat queue → mark resolved>`
-5. `<Open the public ward map → status now shows Resolved>`
+1. **Open the live MVP and enter the citizen-facing application.**
+2. **Create a civic complaint** by selecting an issue category and providing the required details and location.
+3. **Observe the complaint workflow**, including validation and routing.
+4. **Open the staff/admin interface** and verify that the complaint appears in the appropriate workflow or queue.
+5. **Update the complaint status** and verify that the updated status is reflected in the citizen-facing interface.
+
+### Key Features to Observe
+
+* Citizen complaint reporting
+* Structured issue and location information
+* Complaint validation
+* Complaint routing
+* Staff/admin workflow
+* Complaint status tracking
+* Resolution workflow
+* Citizen visibility
+* Offline-first capability
+* Modular application architecture
 
 ---
 
 ## 7. Declaration
 
-- [ ] All Drive links open in an incognito window with **Viewer** access (no "Request access").
-- [ ] The video is one continuous recording, ≤ 10 minutes, Part 1 then Part 2.
-- [ ] The decision log is one page and written by us in our own words.
-- [ ] All AI tools used (development and in-product) are disclosed in [`ai.md`](./ai.md).
-- [ ] No code specific to this challenge was written before 18 Sept 2026, 00:00 IST.
-- [ ] We will not modify or replace any linked file after 20 Sept 2026, 23:59 IST.
+* [ ] All Google Drive links open in an incognito/private window with **Viewer** access and do not require access requests.
+* [ ] The video is one continuous recording and is **≤ 10 minutes**, with Part 1 followed by Part 2.
+* [ ] The decision log is one page and written by the team in our own words.
+* [ ] All AI tools used during development and any AI/ML used inside the product are disclosed in [`ai.md`](./ai.md).
+* [ ] No code specific to this challenge was written before **18 September 2026, 00:00 IST**.
+* [ ] We will not modify or replace any linked submission artifact after **20 September 2026, 23:59 IST**.
+* [ ] All SHA-256 values have been calculated from the final uploaded files.
+* [ ] The final Drive links, filenames and hashes have been verified before submission.
 
-**Submitted by:** `<Team Leader name>` · **Date/Time (IST):** `<20-09-2026 21:40>`
+---
+
+**Submitted by:** `Varun P`
+**Team:** `Bug Busters`
+**Team ID:** `HM26-1E71`
+**Date/Time (IST):** `20-09-2026`
